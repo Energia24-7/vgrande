@@ -5,6 +5,37 @@ const urls = {
   bienes: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=1792574698&single=true&output=csv"
 };
 
+let serviciosGlobal = [];
+
+function renderServicios(servicios) {
+  serviciosGlobal = servicios; // guardar para filtrar
+  mostrarServicios(servicios);
+}
+
+function mostrarServicios(servicios) {
+  let cont = document.getElementById("listaServicios");
+  cont.innerHTML = "";
+  servicios.forEach(s => {
+    cont.innerHTML += `
+      <div class="card">
+        <h3>${s.Nombre} (${s.Categoria})</h3>
+        <p>Tel: ${s.Contacto}</p>
+        <p>${s.Detalle}</p>
+      </div>`;
+  });
+}
+
+function filtrarServicios() {
+  let cat = document.getElementById("filtroCategoria").value;
+  if (cat === "") {
+    mostrarServicios(serviciosGlobal);
+  } else {
+    mostrarServicios(serviciosGlobal.filter(s => s.Categoria === cat));
+  }
+}
+
+
+
 // Detectar en qué página estamos
 document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("listaServicios")) {
