@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Servicios de Mano de Obra - Vista Grande</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js"></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Servicios de Mano de Obra</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+    </nav>
+  </header>
+
+  <main>
+    <label for="filtroCategoria">Filtrar por categoría:</label>
+    <select id="filtroCategoria" onchange="filtrarServicios()"></select>
+
+    <div id="listaServicios"></div>
+  </main>
+
+  <footer>
+    <p>Lote 39 / Vista Grande / Andres Cuadrado / 0998879869</p>
+  </footer>
+</body>
+</html>
