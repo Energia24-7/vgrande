@@ -1,4 +1,4 @@
-const publicSpreadsheetUrl = "TU_LINK_DE_GOOGLESHEET_PUBLISH"; 
+const publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pubhtml"; 
 
 function init() {
   Tabletop.init({
