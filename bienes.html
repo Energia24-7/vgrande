@@ -1,13 +1,32 @@
-<main>
-
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Bienes raíces - Servicios Vista Grande</title>
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-<script src="script.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header>
+    <h1>Bienes raíces - Vista Grande</h1>
+    <nav><a href="index.html">Inicio</a> | <a href="servicios.html">Servicios</a> | <a href="ventas.html">Cosas en venta</a></nav>
+  </header>
 
-  <label for="filtroTransaccion">Transacción:</label>
-  <select id="filtroTransaccion" onchange="filtrarBienes()"></select>
+  <main>
+    <section class="filtros">
+      <label for="filtroTransaccionBienes">Transacción:</label>
+      <select id="filtroTransaccionBienes"></select>
 
-  <label for="filtroTipo">Tipo de inmueble:</label>
-  <select id="filtroTipo" onchange="filtrarBienes()"></select>
+      <label for="filtroTipoBienes">Tipo de inmueble:</label>
+      <select id="filtroTipoBienes"></select>
+    </section>
 
-  <div id="listaBienes"></div>
-</main>
+    <section id="listaBienes" class="lista"></section>
+  </main>
+
+  <footer>
+    Lote 39 / Vista Grande / Andres Cuadrado / 0998879869
+  </footer>
+</body>
+</html>
