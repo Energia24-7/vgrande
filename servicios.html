@@ -1,36 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-<script src="script.js" defer></script>
-
-<label for="filtroCategoria">Filtrar por categoría:</label>
-<select id="filtroCategoria" onchange="filtrarServicios()"></select>
-<div id="listaServicios"></div>
-  
 <head>
-  <meta charset="UTF-8">
-  <title>Servicios de Mano de Obra - Vista Grande</title>
+  <meta charset="utf-8">
+  <title>Servicios - Servicios Vista Grande</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <script src="script.js" defer></script>
 </head>
 <body>
   <header>
-    <h1>Servicios de Mano de Obra</h1>
-    <nav>
-      <a href="index.html">Inicio</a>
-    </nav>
+    <h1>Servicios de mano de obra - Vista Grande</h1>
+    <nav><a href="index.html">Inicio</a> | <a href="ventas.html">Cosas en venta</a> | <a href="bienes.html">Bienes raíces</a></nav>
   </header>
 
   <main>
-    <label for="filtroCategoria">Filtrar por categoría:</label>
-    <select id="filtroCategoria" onchange="filtrarServicios()"></select>
+    <section class="filtros">
+      <label for="filtroCategoriaServicios">Filtrar por categoría:</label>
+      <select id="filtroCategoriaServicios"></select>
+    </section>
 
-    <div id="listaServicios"></div>
+    <section id="listaServicios" class="lista"></section>
   </main>
 
   <footer>
-    <p>Lote 39 / Vista Grande / Andres Cuadrado / 0998879869</p>
+    Lote 39 / Vista Grande / Andres Cuadrado / 0998879869
   </footer>
 </body>
 </html>
