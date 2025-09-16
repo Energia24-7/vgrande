@@ -1,44 +1,191 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>VGrande</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <title>Servicios Vista Grande</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Bienvenido a VGrande</h1>
-  </header>
 
-  <!-- Sección de 3 imágenes con links -->
+  <div id="menu"></div>
+
   <main>
-    <section class="thumbs">
-      <a href="pagina1.html">
-        <img src="img/pagina1.jpg" alt="Página 1">
-        <p>Página 1</p>
-      </a>
-      <a href="pagina2.html">
-        <img src="img/pagina2.jpg" alt="Página 2">
-        <p>Página 2</p>
-      </a>
-      <a href="pagina3.html">
-        <img src="img/pagina3.jpg" alt="Página 3">
-        <p>Página 3</p>
-      </a>
-    </section>
-
-    <!-- Sección de imágenes cargadas desde Google Sheets -->
-    <section id="gallery">
-      <h2>Galería desde Google Sheets</h2>
-      <div id="sheet-images"></div>
+    <section class="hero">
+      <img src="img/logo.png" alt="Vista Grande" class="hero-logo">
+      <h1>Bienvenido a Vista Grande</h1>
+      <p>Página principal con anuncios destacados de la urbanización Vista Grande.</p>
     </section>
   </main>
 
   <footer>
-    <p>© 2025 VGrande</p>
+    <p>Lote 39 / Vista Grande / Andres Cuadrado / 0998879869</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    fetch("menu.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("menu").innerHTML = data);
+  </script>
 </body>
 </html>
+
+
+///////////////
+/* --- Reset básico --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: #f4f6f9;
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Menú principal --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #002855; /* Azul oscuro */
+  padding: 10px 20px;
+}
+
+.navbar .logo {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.navbar .logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar ul li {
+  margin-left: 20px;
+}
+
+.navbar ul li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.navbar ul li a:hover {
+  color: #ffcc00;
+}
+
+/* --- Encabezados y secciones --- */
+main {
+  flex: 1;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+h1, h2 {
+  color: #002855;
+  margin-bottom: 15px;
+}
+
+/* --- Hero en la página principal --- */
+.hero {
+  text-align: center;
+  padding: 30px;
+  background: #e6eef9;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.hero-logo {
+  max-width: 120px;
+  margin-bottom: 15px;
+}
+
+/* --- Tablas y filtros --- */
+label {
+  margin-right: 10px;
+  font-weight: bold;
+  color: #002855;
+}
+
+select {
+  padding: 5px 10px;
+  margin-right: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* --- Contenedores de datos --- */
+#servicios, #ventas, #bienes {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* --- Footer --- */
+footer {
+  background-color: #002855;
+  color: #fff;
+  text-align: center;
+  padding: 15px 10px;
+  margin-top: auto;
+  font-size: 14px;
+}
+
+/* --- Responsivo --- */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .navbar ul li {
+    margin: 10px 0;
+  }
+}
+
