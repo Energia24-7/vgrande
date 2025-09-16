@@ -1,10 +1,11 @@
+```javascript
 // ================================
 // CONFIG: URLs CSV publicados
 // ================================
-const urls = {
-servicios: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=0&single=true&output=csv",
-ventas: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=1530798322&single=true&output=csv",
-bienes: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=1792574698&single=true&output=csv"
+const CSV_URLS = {
+  servicios: "URL_CSV_DE_SERVICIOS",
+  ventas: "URL_CSV_DE_VENTAS",
+  bienes: "URL_CSV_DE_BIENES"
 };
 
 // ================================
@@ -12,13 +13,13 @@ bienes: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhy
 // ================================
 document.addEventListener("DOMContentLoaded", () => {
   if (document.getElementById("listaServicios")) {
-    cargarCSV(urls.servicios, renderServicios);
+    cargarCSV(CSV_URLS.servicios, renderServicios);
   }
   if (document.getElementById("listaVentas")) {
-    cargarCSV(urls.ventas, renderVentas);
+    cargarCSV(CSV_URLS.ventas, renderVentas);
   }
   if (document.getElementById("listaBienes")) {
-    cargarCSV(urls.bienes, renderBienes);
+    cargarCSV(CSV_URLS.bienes, renderBienes);
   }
 });
 
@@ -33,13 +34,24 @@ function cargarCSV(url, callback) {
 }
 
 // ================================
-// Utilidad para crear imágenes
+// Utilidad para crear imágenes con lightbox
 // ================================
 function createImgHtml(url, alt = "foto") {
   if (!url) return "";
   let cleanUrl = url.trim();
   if (cleanUrl === "") return "";
-  return `<img src="${cleanUrl}" alt="${alt}" onerror="this.style.display='none'">`;
+  return `<img src="${cleanUrl}" alt="${alt}" class="thumb" onclick="openLightbox('${cleanUrl}')">`;
+}
+
+function openLightbox(src) {
+  let modal = document.getElementById("lightboxModal");
+  let img = document.getElementById("lightboxImg");
+  img.src = src;
+  modal.style.display = "block";
+}
+
+function closeLightbox() {
+  document.getElementById("lightboxModal").style.display = "none";
 }
 
 // ================================
@@ -48,7 +60,7 @@ function createImgHtml(url, alt = "foto") {
 let serviciosGlobal = [];
 
 function renderServicios(servicios) {
-  serviciosGlobal = servicios.filter(s => s.Nombre); // ignorar filas vacías
+  serviciosGlobal = servicios.filter(s => s.Nombre);
   mostrarServicios(serviciosGlobal);
   cargarFiltro("filtroCategoria", "Categoria", serviciosGlobal);
 }
@@ -63,9 +75,9 @@ function mostrarServicios(servicios) {
         <p>Tel: ${s.Contacto}</p>
         <p>${s.Detalle}</p>
         <div class="fotos">
-          ${createImgHtml(s.Foto1)} 
-          ${createImgHtml(s.Foto2)} 
-          ${createImgHtml(s.Foto3)} 
+          ${createImgHtml(s.Foto1)}
+          ${createImgHtml(s.Foto2)}
+          ${createImgHtml(s.Foto3)}
           ${createImgHtml(s.Foto4)}
         </div>
         <p><em>${s.Comentario || ""}</em></p>
@@ -91,6 +103,7 @@ function renderVentas(ventas) {
   ventasGlobal = ventas.filter(v => v.Descripcion);
   mostrarVentas(ventasGlobal);
   cargarFiltro("filtroCategoriaVentas", "Categoria", ventasGlobal);
+  cargarFiltro("filtroEstadoVentas", "Estado", ventasGlobal);
 }
 
 function mostrarVentas(ventas) {
@@ -103,7 +116,7 @@ function mostrarVentas(ventas) {
         <p>${v.Marca} ${v.Modelo} (${v.Estado})</p>
         <p>${v.Categoria} - Publicado: ${v.Fecha}</p>
         <div class="fotos">
-          ${createImgHtml(v.Foto1)} 
+          ${createImgHtml(v.Foto1)}
           ${createImgHtml(v.Foto2)}
         </div>
         <p>Contacto: ${v.Contacto}</p>
@@ -113,11 +126,11 @@ function mostrarVentas(ventas) {
 
 function filtrarVentas() {
   let cat = document.getElementById("filtroCategoriaVentas").value;
-  if (cat === "") {
-    mostrarVentas(ventasGlobal);
-  } else {
-    mostrarVentas(ventasGlobal.filter(v => v.Categoria === cat));
-  }
+  let estado = document.getElementById("filtroEstadoVentas").value;
+  let filtrados = ventasGlobal;
+  if (cat !== "") filtrados = filtrados.filter(v => v.Categoria === cat);
+  if (estado !== "") filtrados = filtrados.filter(v => v.Estado === estado);
+  mostrarVentas(filtrados);
 }
 
 // ================================
@@ -138,13 +151,14 @@ function mostrarBienes(bienes) {
   bienes.forEach(b => {
     cont.innerHTML += `
       <div class="card">
-        <h3>${b.Tipo} en ${b.Transaccion} - $${b.Valor}</h3>
+        <h3>${b.Tipo}</h3>
+        <p>${b.Transaccion} - $${b.Valor}</p>
         <p>Ubicación: ${b.Ubicacion}</p>
         <p>Publicado: ${b.Fecha}</p>
         <div class="fotos">
-          ${createImgHtml(b.Foto1)} 
-          ${createImgHtml(b.Foto2)} 
-          ${createImgHtml(b.Foto3)} 
+          ${createImgHtml(b.Foto1)}
+          ${createImgHtml(b.Foto2)}
+          ${createImgHtml(b.Foto3)}
           ${createImgHtml(b.Foto4)}
         </div>
         <p>Contacto: ${b.Contacto}</p>
@@ -168,6 +182,7 @@ function cargarFiltro(id, campo, datos) {
   let select = document.getElementById(id);
   if (!select) return;
   let valores = [...new Set(datos.map(d => d[campo]).filter(Boolean))];
-  select.innerHTML = `<option value="">Todos</option>` + 
+  select.innerHTML = `<option value="">Todos</option>` +
     valores.map(v => `<option value="${v}">${v}</option>`).join("");
 }
+```
