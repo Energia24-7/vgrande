@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bienes - Vista Grande</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,17 +23,34 @@
 
   <main>
     <section class="content">
-      <h2>Nuestros Bienes</h2>
-      <p>
-        Ponemos a tu disposición una amplia gama de bienes disponibles para alquiler o compra. 
-        Consulta nuestro inventario actualizado.
-      </p>
-      <img src="img/bienes.jpg" alt="Bienes" class="sheet-img">
+      <h2>Bienes Raíces</h2>
+
+      <!-- FILTROS usados por script.js -->
+      <div class="filters">
+        <label for="filterTransaccion">Tipo de transacción:</label>
+        <select id="filterTransaccion">
+          <option value="">-- Todos --</option>
+        </select>
+
+        <label for="filterTipo" style="margin-left:12px;">Tipo de inmueble:</label>
+        <select id="filterTipo">
+          <option value="">-- Todos --</option>
+        </select>
+      </div>
+
+      <!-- CONTENEDOR donde script.js insertará las tarjetas -->
+      <div id="bienes" class="cards-container">
+        <!-- script.js llenará aquí -->
+      </div>
     </section>
   </main>
 
   <footer>
     <p>&copy; 2025 Vista Grande - Todos los derechos reservados</p>
   </footer>
+
+  <!-- PapaParse + script.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js" integrity="sha512-q0hM+/7r3rQWb2vIN6oG2u0bU7wqQ3s2m3ygKmb5pS1y2cV1+9qGDVg3hG5eFJ2Y1QmK6l6F0+2jl8R+EoQJ0w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="script.js"></script>
 </body>
 </html>
