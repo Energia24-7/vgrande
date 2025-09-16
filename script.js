@@ -66,9 +66,9 @@ function renderServicios(data) {
         <div class="card">
           ${renderImages(row)}
           <h3>${row["Nombre"] || "Sin nombre"}</h3>
-          <p><strong>Tel:</strong> ${row["Contacto telefono"] || ""}</p>
+          <p><strong>Telefono:</strong> ${row["Contacto telefono"] || ""}</p>
           <p><strong>Categoría:</strong> ${row["Categoria de Servicio"] || ""}</p>
-          <p>${row["Detalle de servicios"] || ""}</p>
+          <p><strong>Alcance de servicios:</strong> ${row["Detalle de servicios"] || ""}</p>
         </div>`;
     });
   }
@@ -98,7 +98,7 @@ function renderVentas(data) {
         <div class="card">
           ${renderImages(row)}
           <h3>${row["Descripcion"] || "Sin descripción"}</h3>
-          <p><strong>Categoria:</strong> $${row["Categoria"] || ""}</p>
+          <p><strong>Categoria:</strong> ${row["Categoria"] || ""}</p>
           <p><strong>Precio:</strong> $${row["Precio"] || ""}</p>
           <p><strong>Marca:</strong> ${row["Marca"] || ""} | <strong>Modelo:</strong> ${row["Modelo"] || ""}</p>
           <p><strong>Estado:</strong> ${row["Estado"] || ""}</p>
