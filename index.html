@@ -1,31 +1,44 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <title>VGrande</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Servicios Vista Grande</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <header>
+    <h1>Bienvenido a VGrande</h1>
+  </header>
 
-  <div id="menu"></div>
-
+  <!-- Sección de 3 imágenes con links -->
   <main>
-    <section class="hero">
-      <img src="img/logo.png" alt="Vista Grande" class="hero-logo">
-      <h1>Bienvenido a Vista Grande</h1>
-      <p>Página principal con anuncios destacados de la urbanización Vista Grande.</p>
+    <section class="thumbs">
+      <a href="pagina1.html">
+        <img src="img/pagina1.jpg" alt="Página 1">
+        <p>Página 1</p>
+      </a>
+      <a href="pagina2.html">
+        <img src="img/pagina2.jpg" alt="Página 2">
+        <p>Página 2</p>
+      </a>
+      <a href="pagina3.html">
+        <img src="img/pagina3.jpg" alt="Página 3">
+        <p>Página 3</p>
+      </a>
+    </section>
+
+    <!-- Sección de imágenes cargadas desde Google Sheets -->
+    <section id="gallery">
+      <h2>Galería desde Google Sheets</h2>
+      <div id="sheet-images"></div>
     </section>
   </main>
 
   <footer>
-    <p>Lote 39 / Vista Grande / Andres Cuadrado / 0998879869</p>
+    <p>© 2025 VGrande</p>
   </footer>
 
-  <script>
-    fetch("menu.html")
-      .then(res => res.text())
-      .then(data => document.getElementById("menu").innerHTML = data);
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
