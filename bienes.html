@@ -25,6 +25,15 @@
     <section id="listaBienes" class="lista"></section>
   </main>
 
+  <div id="menu-container"></div>
+<script>
+  fetch("menu.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("menu-container").innerHTML = html;
+    });
+</script>
+
   <footer>
     Lote 39 / Vista Grande / Andres Cuadrado / 0998879869
   </footer>
