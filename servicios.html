@@ -1,43 +1,29 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Servicios - Vista Grande</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <title>Servicios - Servicios Vista Grande</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
-<header class="site-header">
-<div class="logo-wrap">
-<img src="img/logo.png" alt="Vista Grande" class="logo">
-<h1>Servicios Vista Grande</h1>
-</div>
-<nav class="main-nav">
-<ul>
-<li><a href="index.html">Inicio</a></li>
-<li><a href="servicios.html" class="active">Servicios</a></li>
-<li><a href="ventas.html">Cosas en venta</a></li>
-<li><a href="bienes.html">Bienes raíces</a></li>
-</ul>
-</nav>
-</header>
+  <header>
+    <h1>Servicios de mano de obra - Vista Grande</h1>
+    <nav><a href="index.html">Inicio</a> | <a href="ventas.html">Cosas en venta</a> | <a href="bienes.html">Bienes raíces</a></nav>
+  </header>
 
+  <main>
+    <section class="filtros">
+      <label for="filtroCategoriaServicios">Filtrar por categoría:</label>
+      <select id="filtroCategoriaServicios"></select>
+    </section>
 
-<main class="container">
-<section class="filtros">
-<label for="filtroCategoriaServicios">Categoría:</label>
-<select id="filtroCategoriaServicios"></select>
-</section>
+    <section id="listaServicios" class="lista"></section>
+  </main>
 
-
-<section id="listaServicios" class="lista"></section>
-</main>
-
-
-<footer class="site-footer">Lote 39 / Vista Grande / Andres Cuadrado / 0998879869</footer>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-<script src="script.js" defer></script>
+  <footer>
+    Lote 39 / Vista Grande / Andres Cuadrado / 0998879869
+  </footer>
 </body>
 </html>
