@@ -1,198 +1,180 @@
-```javascript
-// ================================
-// CONFIG: URLs CSV publicados
-// ================================
+// script.js
+
+// URLs públicas de tus 3 pestañas en Google Sheets (CSV exportado)
 const CSV_URLS = {
-servicios: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=0&single=true&output=csv",
-ventas: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=1530798322&single=true&output=csv",
-bienes: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=1792574698&single=true&output=csv"
+  servicios: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=0&single=true&output=csv",
+  ventas:    "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=1530798322&single=true&output=csv",
+  bienes:    "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=1792574698&single=true&output=csv"
 };
 
-// ================================
-// Loader general con PapaParse
-// ================================
+// Detectar en qué página estamos (cada <body> debe tener data-page="...")
+const pageType = document.body.dataset.page;
+
 document.addEventListener("DOMContentLoaded", () => {
-  if (document.getElementById("listaServicios")) {
-    cargarCSV(CSV_URLS.servicios, renderServicios);
-  }
-  if (document.getElementById("listaVentas")) {
-    cargarCSV(CSV_URLS.ventas, renderVentas);
-  }
-  if (document.getElementById("listaBienes")) {
-    cargarCSV(CSV_URLS.bienes, renderBienes);
+  if (pageType && CSV_URLS[pageType]) {
+    loadData(CSV_URLS[pageType], pageType);
   }
 });
 
-function cargarCSV(url, callback) {
+// Cargar CSV con PapaParse
+function loadData(url, type) {
   Papa.parse(url, {
     download: true,
     header: true,
-    complete: function (results) {
-      callback(results.data);
+    skipEmptyLines: true,
+    complete: (results) => {
+      renderData(results.data, type);
+      setupFilters(results.data, type);
     }
   });
 }
 
-// ================================
-// Utilidad para crear imágenes con lightbox
-// ================================
-function createImgHtml(url, alt='foto') {
-  if (!url) return "";
-  let first = url.split(",")[0].trim();
-  if (!first) return "";
+// Renderizar datos en cada página
+function renderData(data, type) {
+  const container = document.getElementById("data-container");
+  container.innerHTML = "";
 
-  // Si es Google Drive, convertir a link directo
-  if (first.includes("drive.google.com")) {
-    const match = first.match(/\/d\/([^/]+)\//);
+  if (type === "servicios") {
+    data.forEach(row => {
+      container.innerHTML += `
+        <div class="card">
+          <h3>${row.Nombre || ""}</h3>
+          <p><strong>Tel:</strong> ${row.Contacto || ""}</p>
+          <p><strong>Categoría:</strong> ${row.Categoria || ""}</p>
+          <p>${row.Detalle || ""}</p>
+          ${createImgHtml(row.Foto1)}
+          ${createImgHtml(row.Foto2)}
+          ${createImgHtml(row.Foto3)}
+          ${createImgHtml(row.Foto4)}
+        </div>
+      `;
+    });
+  }
+
+  if (type === "ventas") {
+    data.forEach(row => {
+      container.innerHTML += `
+        <div class="card">
+          <h3>${row.Descripcion || ""}</h3>
+          <p><strong>Precio:</strong> $${row.Precio || ""}</p>
+          <p><strong>Marca:</strong> ${row.Marca || ""} | <strong>Modelo:</strong> ${row.Modelo || ""}</p>
+          <p><strong>Estado:</strong> ${row.Estado || ""} | <strong>Categoría:</strong> ${row.Categoria || ""}</p>
+          <p><em>${row["Fecha de publicacion"] || ""}</em></p>
+          ${createImgHtml(row.Foto1)}
+          ${createImgHtml(row.Foto2)}
+          ${createImgHtml(row.Foto3)}
+        </div>
+      `;
+    });
+  }
+
+  if (type === "bienes") {
+    data.forEach(row => {
+      container.innerHTML += `
+        <div class="card">
+          <div class="info-line">
+            <strong>${row["Tipo de transaccion"] || ""}</strong> |
+            <strong>${row["Tipo de inmueble"] || ""}</strong> |
+            <strong>$${row.Valor || ""}</strong>
+          </div>
+          <p><strong>Ubicación:</strong> ${row.Ubicacion || ""}</p>
+          <p><em>${row["Fecha de publicacion"] || ""}</em></p>
+          ${createImgHtml(row.Foto1)}
+          ${createImgHtml(row.Foto2)}
+          ${createImgHtml(row.Foto3)}
+          ${createImgHtml(row.Foto4)}
+        </div>
+      `;
+    });
+  }
+}
+
+// Crear imágenes con soporte para lightbox
+function createImgHtml(url, alt = 'foto') {
+  if (!url) return "";
+  let cleanUrl = url.trim();
+  if (!cleanUrl) return "";
+
+  // Si es link de Google Drive → transformar
+  if (cleanUrl.includes("drive.google.com")) {
+    const match = cleanUrl.match(/\/d\/([^/]+)\//);
     if (match && match[1]) {
-      first = `https://drive.google.com/uc?id=${match[1]}`;
+      cleanUrl = `https://drive.google.com/uc?id=${match[1]}`;
     }
   }
 
-  // IMPORTANTE: usar comillas dobles escapadas para onclick
-  return `<img src="${first}" alt="${alt}" class="thumb" onclick="openLightbox(&quot;${first}&quot;)">`;
+  // Usar &quot; para evitar errores de template string
+  return `<img src="${cleanUrl}" alt="${alt}" class="thumb" onclick="openLightbox(&quot;${cleanUrl}&quot;)">`;
 }
 
+// --- Lightbox ---
 function openLightbox(src) {
-  let modal = document.getElementById("lightboxModal");
-  let img = document.getElementById("lightboxImg");
-  img.src = src;
-  modal.style.display = "block";
+  const modal = document.getElementById("lightbox");
+  const modalImg = document.getElementById("lightbox-img");
+  modal.style.display = "flex";
+  modalImg.src = src;
 }
 
 function closeLightbox() {
-  document.getElementById("lightboxModal").style.display = "none";
+  document.getElementById("lightbox").style.display = "none";
 }
 
-// ================================
-// Servicios
-// ================================
-let serviciosGlobal = [];
+// --- Filtros dinámicos ---
+function setupFilters(data, type) {
+  const filter1 = document.getElementById("filter1");
+  const filter2 = document.getElementById("filter2");
 
-function renderServicios(servicios) {
-  serviciosGlobal = servicios.filter(s => s.Nombre);
-  mostrarServicios(serviciosGlobal);
-  cargarFiltro("filtroCategoria", "Categoria", serviciosGlobal);
-}
+  if (!filter1) return;
 
-function mostrarServicios(servicios) {
-  let cont = document.getElementById("listaServicios");
-  cont.innerHTML = "";
-  servicios.forEach(s => {
-    cont.innerHTML += `
-      <div class="card">
-        <h3>${s.Nombre} (${s.Categoria})</h3>
-        <p>Tel: ${s.Contacto}</p>
-        <p>${s.Detalle}</p>
-        <div class="fotos">
-          ${createImgHtml(s.Foto1)}
-          ${createImgHtml(s.Foto2)}
-          ${createImgHtml(s.Foto3)}
-          ${createImgHtml(s.Foto4)}
-        </div>
-        <p><em>${s.Comentario || ""}</em></p>
-      </div>`;
-  });
-}
+  let options1 = new Set();
+  let options2 = new Set();
 
-function filtrarServicios() {
-  let cat = document.getElementById("filtroCategoria").value;
-  if (cat === "") {
-    mostrarServicios(serviciosGlobal);
-  } else {
-    mostrarServicios(serviciosGlobal.filter(s => s.Categoria === cat));
+  if (type === "servicios") {
+    data.forEach(r => options1.add(r.Categoria));
+    populateSelect(filter1, [...options1], "Todas las categorías");
   }
-}
 
-// ================================
-// Ventas
-// ================================
-let ventasGlobal = [];
+  if (type === "ventas") {
+    data.forEach(r => {
+      options1.add(r.Categoria);
+      options2.add(r.Estado);
+    });
+    populateSelect(filter1, [...options1], "Todas las categorías");
+    populateSelect(filter2, [...options2], "Todos los estados");
+  }
 
-function renderVentas(ventas) {
-  ventasGlobal = ventas.filter(v => v.Descripcion);
-  mostrarVentas(ventasGlobal);
-  cargarFiltro("filtroCategoriaVentas", "Categoria", ventasGlobal);
-  cargarFiltro("filtroEstadoVentas", "Estado", ventasGlobal);
-}
+  if (type === "bienes") {
+    data.forEach(r => {
+      options1.add(r["Tipo de transaccion"]);
+      options2.add(r["Tipo de inmueble"]);
+    });
+    populateSelect(filter1, [...options1], "Todas las transacciones");
+    populateSelect(filter2, [...options2], "Todos los inmuebles");
+  }
 
-function mostrarVentas(ventas) {
-  let cont = document.getElementById("listaVentas");
-  cont.innerHTML = "";
-  ventas.forEach(v => {
-    cont.innerHTML += `
-      <div class="card">
-        <h3>${v.Descripcion} - $${v.Precio}</h3>
-        <p>${v.Marca} ${v.Modelo} (${v.Estado})</p>
-        <p>${v.Categoria} - Publicado: ${v.Fecha}</p>
-        <div class="fotos">
-          ${createImgHtml(v.Foto1)}
-          ${createImgHtml(v.Foto2)}
-        </div>
-        <p>Contacto: ${v.Contacto}</p>
-      </div>`;
+  // Listeners
+  [filter1, filter2].forEach(f => {
+    if (f) {
+      f.addEventListener("change", () => {
+        let filtered = data.filter(row => {
+          let ok1 = !filter1.value || filter1.value === "all" || 
+                    row.Categoria === filter1.value || 
+                    row["Tipo de transaccion"] === filter1.value;
+          let ok2 = !filter2 || !filter2.value || filter2.value === "all" ||
+                    row.Estado === filter2.value || 
+                    row["Tipo de inmueble"] === filter2.value;
+          return ok1 && ok2;
+        });
+        renderData(filtered, type);
+      });
+    }
   });
 }
 
-function filtrarVentas() {
-  let cat = document.getElementById("filtroCategoriaVentas").value;
-  let estado = document.getElementById("filtroEstadoVentas").value;
-  let filtrados = ventasGlobal;
-  if (cat !== "") filtrados = filtrados.filter(v => v.Categoria === cat);
-  if (estado !== "") filtrados = filtrados.filter(v => v.Estado === estado);
-  mostrarVentas(filtrados);
-}
-
-// ================================
-// Bienes
-// ================================
-let bienesGlobal = [];
-
-function renderBienes(bienes) {
-  bienesGlobal = bienes.filter(b => b.Tipo);
-  mostrarBienes(bienesGlobal);
-  cargarFiltro("filtroTransaccion", "Transaccion", bienesGlobal);
-  cargarFiltro("filtroTipo", "Tipo", bienesGlobal);
-}
-
-function mostrarBienes(bienes) {
-  let cont = document.getElementById("listaBienes");
-  cont.innerHTML = "";
-  bienes.forEach(b => {
-    cont.innerHTML += `
-      <div class="card">
-        <h3>${b.Tipo}</h3>
-        <p>${b.Transaccion} - $${b.Valor}</p>
-        <p>Ubicación: ${b.Ubicacion}</p>
-        <p>Publicado: ${b.Fecha}</p>
-        <div class="fotos">
-          ${createImgHtml(b.Foto1)}
-          ${createImgHtml(b.Foto2)}
-          ${createImgHtml(b.Foto3)}
-          ${createImgHtml(b.Foto4)}
-        </div>
-        <p>Contacto: ${b.Contacto}</p>
-      </div>`;
-  });
-}
-
-function filtrarBienes() {
-  let trans = document.getElementById("filtroTransaccion").value;
-  let tipo = document.getElementById("filtroTipo").value;
-  let filtrados = bienesGlobal;
-  if (trans !== "") filtrados = filtrados.filter(b => b.Transaccion === trans);
-  if (tipo !== "") filtrados = filtrados.filter(b => b.Tipo === tipo);
-  mostrarBienes(filtrados);
-}
-
-// ================================
-// Filtro genérico
-// ================================
-function cargarFiltro(id, campo, datos) {
-  let select = document.getElementById(id);
+function populateSelect(select, values, defaultText) {
   if (!select) return;
-  let valores = [...new Set(datos.map(d => d[campo]).filter(Boolean))];
-  select.innerHTML = `<option value="">Todos</option>` +
-    valores.map(v => `<option value="${v}">${v}</option>`).join("");
+  select.innerHTML = `<option value="all">${defaultText}</option>`;
+  values.filter(Boolean).forEach(v => {
+    select.innerHTML += `<option value="${v}">${v}</option>`;
+  });
 }
-```
