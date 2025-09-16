@@ -36,3 +36,13 @@ footer { background:#222; color:white; text-align:center; padding:8px; margin-to
 .navbar a:hover {
   color: #ffcc00; /* amarillo al pasar */
 }
+.main-header {
+  text-align: center;
+  padding: 20px;
+}
+
+.main-header .logo {
+  max-width: 120px;
+  display: block;
+  margin: 0 auto 10px;
+}
