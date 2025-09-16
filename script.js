@@ -98,6 +98,7 @@ function renderVentas(data) {
         <div class="card">
           ${renderImages(row)}
           <h3>${row["Descripcion"] || "Sin descripción"}</h3>
+          <p><strong>Categoria:</strong> $${row["Categoria"] || ""}</p>
           <p><strong>Precio:</strong> $${row["Precio"] || ""}</p>
           <p><strong>Marca:</strong> ${row["Marca"] || ""} | <strong>Modelo:</strong> ${row["Modelo"] || ""}</p>
           <p><strong>Estado:</strong> ${row["Estado"] || ""}</p>
