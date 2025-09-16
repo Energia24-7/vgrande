@@ -1,42 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <title>Ventas - Servicios Vista Grande</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-  <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosas en Venta - Vista Grande</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Cosas en venta - Vista Grande</h1>
-    <nav><a href="index.html">Inicio</a> | <a href="servicios.html">Servicios</a> | <a href="bienes.html">Bienes raíces</a></nav>
-  </header>
+
+  <div id="menu"></div>
 
   <main>
-    <section class="filtros">
-      <label for="filtroCategoriaVentas">Categoría:</label>
-      <select id="filtroCategoriaVentas"></select>
+    <h1>Cosas en Venta</h1>
+    <div>
+      <label for="filterCategoria">Categoría:</label>
+      <select id="filterCategoria"><option value="">Todas</option></select>
 
-      <label for="filtroEstadoVentas">Estado:</label>
-      <select id="filtroEstadoVentas"></select>
-    </section>
-
-    <section id="listaVentas" class="lista"></section>
+      <label for="filterEstado">Estado:</label>
+      <select id="filterEstado"><option value="">Todos</option></select>
+    </div>
+    <div id="ventas"></div>
   </main>
 
   <footer>
-    Lote 39 / Vista Grande / Andres Cuadrado / 0998879869
+    <p>Lote 39 / Vista Grande / Andres Cuadrado / 0998879869</p>
   </footer>
 
-<div id="menu-container"></div>
-<script>
-  fetch("menu.html")
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("menu-container").innerHTML = html;
-    });
-</script>
-
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    fetch("menu.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("menu").innerHTML = data);
+  </script>
 </body>
 </html>
