@@ -9,7 +9,7 @@ body {
 
 /* === Encabezado con logo y menú === */
 header {
-  background: #0056b3; /* ✅ Azul */
+  background: #0056b3; /* azul */
   color: white;
   padding: 15px;
   text-align: center;
@@ -19,14 +19,14 @@ header h1 {
   margin: 10px 0 0 0;
 }
 
-/* ✅ Logo */
+/* Logo */
 .logo {
   max-height: 80px;
   display: block;
   margin: 0 auto 10px auto;
 }
 
-/* === Menú principal === */
+/* Menú principal */
 nav ul {
   list-style: none;
   padding: 0;
@@ -53,12 +53,12 @@ nav ul li a:hover {
   background: rgba(255, 255, 255, 0.2);
 }
 
-/* === Secciones principales === */
+/* Main */
 main {
   padding: 20px;
 }
 
-/* Sección con 3 imágenes principales */
+/* Thumbnails (index) */
 .thumbs {
   display: flex;
   flex-wrap: wrap;
@@ -95,23 +95,72 @@ main {
   font-weight: bold;
 }
 
-/* Texto de contenido */
-.content {
-  margin: 20px auto;
-  max-width: 900px;
-  text-align: center;
+/* Contenedor de tarjetas generadas por script.js */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 16px;
 }
 
-/* === Pie de página === */
+/* Tarjeta */
+.card {
+  flex: 1 1 300px;
+  max-width: 340px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  padding: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card h3 {
+  margin: 8px 0 0 0;
+  font-size: 1.05rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+/* Imágenes dentro de la tarjeta */
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Controles de filtro */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.filters label {
+  font-weight: bold;
+}
+
+/* Pie */
 footer {
   text-align: center;
-  background: #0056b3; /* mismo azul */
+  background: #0056b3;
   color: white;
   padding: 15px;
   margin-top: 20px;
 }
 
-/* === Ajustes responsive === */
+/* Ajustes responsive */
 img {
   max-width: 100%;
   height: auto;
@@ -119,27 +168,25 @@ img {
 
 /* Tablets */
 @media (max-width: 768px) {
-  .thumbs a {
-    flex: 1 1 45%; /* 2 columnas */
-  }
-  nav ul {
-    flex-wrap: wrap;
-  }
+  .thumbs a { flex: 1 1 45%; }
+  nav ul { flex-wrap: wrap; }
+  .card img { height: 160px; }
 }
 
 /* Móviles */
 @media (max-width: 480px) {
-  .thumbs a {
-    flex: 1 1 100%; /* 1 columna */
-  }
-  .thumbs img {
-    height: 150px;
-  }
+  .thumbs a { flex: 1 1 100%; }
+  .thumbs img { height: 150px; }
+
   nav ul {
     flex-direction: column;
     align-items: center;
   }
-  nav ul li {
-    margin: 5px 0;
+  nav ul li { margin: 5px 0; }
+
+  .card {
+    flex: 1 1 100%;
+    max-width: 100%;
   }
+  .card img { height: 140px; }
 }
