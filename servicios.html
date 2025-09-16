@@ -3,34 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Servicios de Mano de Obra - Vista Grande</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Servicios - Vista Grande</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <div id="menu"></div>
+  <header>
+    <img src="img/logo.png" alt="Logo Vista Grande" class="logo">
+    <h1>Servicios Vista Grande</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="ventas.html">Ventas</a></li>
+        <li><a href="bienes.html">Bienes</a></li>
+        <li><a href="menu.html">Menú</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <main>
-    <h1>Servicios de Mano de Obra</h1>
-    <div>
-      <label for="filterCategoria">Filtrar por categoría:</label>
-      <select id="filterCategoria">
-        <option value="">Todos</option>
-      </select>
-    </div>
-    <div id="servicios"></div>
+    <section class="content">
+      <h2>Nuestros Servicios</h2>
+      <p>
+        Ofrecemos soluciones personalizadas para satisfacer las necesidades de nuestros clientes. 
+        Nos especializamos en consultoría, soporte técnico y servicios de mantenimiento.
+      </p>
+      <img src="img/servicios.jpg" alt="Servicios" class="sheet-img">
+    </section>
   </main>
 
   <footer>
-    <p>Lote 39 / Vista Grande / Andres Cuadrado / 0998879869</p>
+    <p>&copy; 2025 Vista Grande - Todos los derechos reservados</p>
   </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-  <script src="script.js"></script>
-  <script>
-    fetch("menu.html")
-      .then(res => res.text())
-      .then(data => document.getElementById("menu").innerHTML = data);
-  </script>
 </body>
 </html>
