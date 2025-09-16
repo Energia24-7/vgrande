@@ -104,6 +104,7 @@ function renderVentas(data) {
           <p><strong>Estado:</strong> ${row["Estado"] || ""}</p>
           <p><strong>Publicado:</strong> ${row["Fecha de publicacion"] || ""}</p>
           <p><strong>Contacto:</strong> ${row["Contacto"] || ""}</p>
+          <p><strong>Descripcion:</strong> ${row["Descripcion"] || ""}</p>
         </div>`;
     });
   }
@@ -138,6 +139,7 @@ function renderBienes(data) {
           <p><strong>Ubicación:</strong> ${row["ubicacion"] || ""}</p>
           <p><strong>Publicado:</strong> ${row["Fecha de publicacion"] || ""}</p>
           <p><strong>Contacto:</strong> ${row["contacto"] || ""}</p>
+          <p><strong>Descripcion:</strong> ${row["Descripcion"] || ""}</p>
         </div>`;
     });
   }
