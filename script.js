@@ -161,3 +161,26 @@ document.addEventListener("DOMContentLoaded", () => {
     loadCSV(urls.bienes, renderBienes);
   }
 });
+
+// Simulación de carga de imágenes desde Google Sheets
+// En tu proyecto real, aquí conectas con Google Sheets API
+// o fetch a la hoja publicada
+document.addEventListener("DOMContentLoaded", () => {
+  const sheetImagesContainer = document.getElementById("sheet-images");
+
+  // Ejemplo: URLs desde Google Sheets (puedes reemplazar con fetch real)
+  const sheetImageUrls = [
+    "https://via.placeholder.com/600x400?text=Foto+1",
+    "https://via.placeholder.com/600x400?text=Foto+2",
+    "https://via.placeholder.com/600x400?text=Foto+3",
+    "https://via.placeholder.com/600x400?text=Foto+4"
+  ];
+
+  sheetImageUrls.forEach(url => {
+    const img = document.createElement("img");
+    img.src = url;
+    img.classList.add("sheet-img");
+    sheetImagesContainer.appendChild(img);
+  });
+});
+
