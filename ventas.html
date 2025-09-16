@@ -28,5 +28,15 @@
   <footer>
     Lote 39 / Vista Grande / Andres Cuadrado / 0998879869
   </footer>
+
+<div id="menu-container"></div>
+<script>
+  fetch("menu.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("menu-container").innerHTML = html;
+    });
+</script>
+
 </body>
 </html>
