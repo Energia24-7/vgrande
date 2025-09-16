@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Servicios - Vista Grande</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,16 +24,28 @@
   <main>
     <section class="content">
       <h2>Nuestros Servicios</h2>
-      <p>
-        Ofrecemos soluciones personalizadas para satisfacer las necesidades de nuestros clientes. 
-        Nos especializamos en consultoría, soporte técnico y servicios de mantenimiento.
-      </p>
-      <img src="img/servicios.jpg" alt="Servicios" class="sheet-img">
+
+      <!-- FILTRO usado por script.js -->
+      <div class="filters">
+        <label for="filterCategoria">Filtrar por categoría:</label>
+        <select id="filterCategoria">
+          <option value="">-- Todas --</option>
+        </select>
+      </div>
+
+      <!-- CONTENEDOR donde script.js insertará las tarjetas -->
+      <div id="servicios" class="cards-container">
+        <!-- script.js llenará aquí -->
+      </div>
     </section>
   </main>
 
   <footer>
     <p>&copy; 2025 Vista Grande - Todos los derechos reservados</p>
   </footer>
+
+  <!-- PapaParse + script.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js" integrity="sha512-q0hM+/7r3rQWb2vIN6oG2u0bU7wqQ3s2m3ygKmb5pS1y2cV1+9qGDVg3hG5eFJ2Y1QmK6l6F0+2jl8R+EoQJ0w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="script.js"></script>
 </body>
 </html>
