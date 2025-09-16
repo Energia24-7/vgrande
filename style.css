@@ -1,48 +1,156 @@
-body { font-family: Arial, sans-serif; margin:0; padding:0; }
-header { background:#0b6; padding:12px; color:#033; text-align:center; }
-header nav a { color:#033; margin:0 8px; text-decoration:none; font-weight:600; }
-main { padding:16px; }
-.filtros { display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:12px; }
-.filtros label { font-weight:600; }
-select { padding:6px; border-radius:6px; border:1px solid #ccc; }
-.lista .card { border:1px solid #ddd; padding:10px; border-radius:8px; margin-bottom:12px; box-shadow:0 1px 2px rgba(0,0,0,0.04); }
-.fotos img { max-width:140px; margin:6px; border-radius:6px; display:inline-block; vertical-align:middle; }
-footer { background:#222; color:white; text-align:center; padding:8px; margin-top:18px; font-size:14px; }
-.error { color:crimson; }
+/* --- Reset básico --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background-color: #f4f6f9;
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Menú principal --- */
 .navbar {
-  background: #003366; /* azul oscuro */
-  padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #002855; /* Azul oscuro */
+  padding: 10px 20px;
+}
+
+.navbar .logo {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.navbar .logo img {
+  height: 40px;
+  margin-right: 10px;
 }
 
 .navbar ul {
   list-style: none;
   display: flex;
-  justify-content: center;
   margin: 0;
   padding: 0;
 }
 
-.navbar li {
-  margin: 0 15px;
+.navbar ul li {
+  margin-left: 20px;
 }
 
-.navbar a {
-  color: white;
+.navbar ul li a {
   text-decoration: none;
-  font-weight: bold;
+  color: #fff;
+  font-weight: 500;
   transition: color 0.3s;
 }
 
-.navbar a:hover {
-  color: #ffcc00; /* amarillo al pasar */
-}
-.main-header {
-  text-align: center;
-  padding: 20px;
+.navbar ul li a:hover {
+  color: #ffcc00;
 }
 
-.main-header .logo {
+/* --- Encabezados y secciones --- */
+main {
+  flex: 1;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+h1, h2 {
+  color: #002855;
+  margin-bottom: 15px;
+}
+
+/* --- Hero en la página principal --- */
+.hero {
+  text-align: center;
+  padding: 30px;
+  background: #e6eef9;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.hero-logo {
   max-width: 120px;
-  display: block;
-  margin: 0 auto 10px;
+  margin-bottom: 15px;
+}
+
+/* --- Tablas y filtros --- */
+label {
+  margin-right: 10px;
+  font-weight: bold;
+  color: #002855;
+}
+
+select {
+  padding: 5px 10px;
+  margin-right: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* --- Contenedores de datos --- */
+#servicios, #ventas, #bienes {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+/* --- Footer --- */
+footer {
+  background-color: #002855;
+  color: #fff;
+  text-align: center;
+  padding: 15px 10px;
+  margin-top: auto;
+  font-size: 14px;
+}
+
+/* --- Responsivo --- */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .navbar ul li {
+    margin: 10px 0;
+  }
 }
