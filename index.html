@@ -1,54 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Servicios Vista Grande</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servicios Vista Grande</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<header class="site-header">
-<div class="logo-wrap">
-<img src="img/logo.png" alt="Vista Grande" class="logo">
-<h1>Servicios Vista Grande</h1>
-</div>
-<nav class="main-nav">
-<ul>
-<li><a href="index.html">Inicio</a></li>
-<li><a href="servicios.html">Servicios</a></li>
-<li><a href="ventas.html">Cosas en venta</a></li>
-<li><a href="bienes.html">Bienes raíces</a></li>
-</ul>
-</nav>
-</header>
+<body data-page="home">
 
+  <!-- Menú cargado dinámicamente -->
+  <div id="menu-container"></div>
+  <script>
+    fetch("menu.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("menu-container").innerHTML = html;
+      });
+  </script>
 
-<main class="container">
-<section class="hero">
-<h2>Anuncios destacados</h2>
-<div class="anuncios">
-<img src="img/anuncio1.jpg" alt="anuncio1" class="thumb" data-full="img/anuncio1-large.jpg">
-<img src="img/anuncio2.jpg" alt="anuncio2" class="thumb" data-full="img/anuncio2-large.jpg">
-<img src="img/anuncio3.jpg" alt="anuncio3" class="thumb" data-full="img/anuncio3-large.jpg">
-</div>
-</section>
-</main>
+  <h1>Bienvenido a Vista Grande</h1>
+  <p>Página principal con anuncios destacados.</p>
 
-
-<footer class="site-footer">Lote 39 / Vista Grande / Andres Cuadrado / 0998879869</footer>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-<script src="script.js" defer></script>
-
-<div id="menu-container"></div>
-<script>
-  fetch("menu.html")
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("menu-container").innerHTML = html;
-    });
-</script>
-
+  <footer>
+    <p>Lote 39 / Vista Grande / Andres Cuadrado / 0998879869</p>
+  </footer>
 </body>
 </html>
+
