@@ -1,41 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <title>Bienes raíces - Servicios Vista Grande</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-  <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bienes Raíces - Vista Grande</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Bienes raíces - Vista Grande</h1>
-    <nav><a href="index.html">Inicio</a> | <a href="servicios.html">Servicios</a> | <a href="ventas.html">Cosas en venta</a></nav>
-  </header>
+
+  <div id="menu"></div>
 
   <main>
-    <section class="filtros">
-      <label for="filtroTransaccionBienes">Transacción:</label>
-      <select id="filtroTransaccionBienes"></select>
+    <h1>Bienes Raíces</h1>
+    <div>
+      <label for="filterTransaccion">Transacción:</label>
+      <select id="filterTransaccion"><option value="">Todas</option></select>
 
-      <label for="filtroTipoBienes">Tipo de inmueble:</label>
-      <select id="filtroTipoBienes"></select>
-    </section>
-
-    <section id="listaBienes" class="lista"></section>
+      <label for="filterTipo">Tipo de inmueble:</label>
+      <select id="filterTipo"><option value="">Todos</option></select>
+    </div>
+    <div id="bienes"></div>
   </main>
 
-  <div id="menu-container"></div>
-<script>
-  fetch("menu.html")
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("menu-container").innerHTML = html;
-    });
-</script>
-
   <footer>
-    Lote 39 / Vista Grande / Andres Cuadrado / 0998879869
+    <p>Lote 39 / Vista Grande / Andres Cuadrado / 0998879869</p>
   </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    fetch("menu.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("menu").innerHTML = data);
+  </script>
 </body>
 </html>
