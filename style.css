@@ -1,4 +1,4 @@
-/* General */
+/* === General === */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -7,17 +7,26 @@ body {
   color: #333;
 }
 
+/* === Encabezado con logo y menú === */
 header {
-  background: #222;
+  background: #0056b3; /* ✅ Azul */
   color: white;
   padding: 15px;
   text-align: center;
 }
 
 header h1 {
-  margin: 0;
+  margin: 10px 0 0 0;
 }
 
+/* ✅ Logo */
+.logo {
+  max-height: 80px;
+  display: block;
+  margin: 0 auto 10px auto;
+}
+
+/* === Menú principal === */
 nav ul {
   list-style: none;
   padding: 0;
@@ -35,12 +44,16 @@ nav ul li a {
   color: white;
   text-decoration: none;
   font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: background 0.2s;
 }
 
 nav ul li a:hover {
-  text-decoration: underline;
+  background: rgba(255, 255, 255, 0.2);
 }
 
+/* === Secciones principales === */
 main {
   padding: 20px;
 }
@@ -89,15 +102,16 @@ main {
   text-align: center;
 }
 
+/* === Pie de página === */
 footer {
   text-align: center;
-  background: #222;
+  background: #0056b3; /* mismo azul */
   color: white;
   padding: 15px;
   margin-top: 20px;
 }
 
-/* ✅ Ajustes responsive */
+/* === Ajustes responsive === */
 img {
   max-width: 100%;
   height: auto;
