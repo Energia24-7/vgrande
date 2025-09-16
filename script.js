@@ -1,173 +1,160 @@
-// ================================
-// CONFIG: URLs CSV publicados
-// ================================
+// URLs de las 3 hojas de Google Sheets en formato CSV
 const urls = {
-servicios: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=0&single=true&output=csv",
-ventas: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=1530798322&single=true&output=csv",
-bienes: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=1792574698&single=true&output=csv"
+  servicios: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=0&single=true&output=csv",
+  ventas: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=1530798322&single=true&output=csv",
+  bienes: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSxqQpk8-5oXFgeRzYIJuhyk9qXdGv23MzAtMap4WsqFtGnVWDfHpJELFn76s4iomdAorxuxPNh6LpQ/pub?gid=1792574698&single=true&output=csv"
 };
 
-// ================================
-// Loader general con PapaParse
-// ================================
-document.addEventListener("DOMContentLoaded", () => {
-  if (document.getElementById("listaServicios")) {
-    cargarCSV(urls.servicios, renderServicios);
-  }
-  if (document.getElementById("listaVentas")) {
-    cargarCSV(urls.ventas, renderVentas);
-  }
-  if (document.getElementById("listaBienes")) {
-    cargarCSV(urls.bienes, renderBienes);
-  }
-});
-
-function cargarCSV(url, callback) {
+// Función genérica para cargar un CSV
+function loadCSV(url, callback) {
   Papa.parse(url, {
     download: true,
     header: true,
-    complete: function (results) {
-      callback(results.data);
+    complete: results => callback(results.data)
+  });
+}
+
+// --- Renderizado de imágenes con lightbox ---
+function renderImages(row, prefix = "Foto") {
+  let images = [];
+  for (let i = 1; i <= 4; i++) {
+    const url = row[`${prefix} ${i}`] || row[`Foto${i}`];
+    if (url) {
+      images.push(`<img src="${url}" alt="Imagen" onclick="openLightbox('${url}')">`);
     }
-  });
-}
-
-// ================================
-// Utilidad para crear imágenes
-// ================================
-function createImgHtml(url, alt = "foto") {
-  if (!url) return "";
-  let cleanUrl = url.trim();
-  if (cleanUrl === "") return "";
-  return `<img src="${cleanUrl}" alt="${alt}" onerror="this.style.display='none'">`;
-}
-
-// ================================
-// Servicios
-// ================================
-let serviciosGlobal = [];
-
-function renderServicios(servicios) {
-  serviciosGlobal = servicios.filter(s => s.Nombre); // ignorar filas vacías
-  mostrarServicios(serviciosGlobal);
-  cargarFiltro("filtroCategoria", "Categoria", serviciosGlobal);
-}
-
-function mostrarServicios(servicios) {
-  let cont = document.getElementById("listaServicios");
-  cont.innerHTML = "";
-  servicios.forEach(s => {
-    cont.innerHTML += `
-      <div class="card">
-        <h3>${s.Nombre} (${s.Categoria})</h3>
-        <p>Tel: ${s.Contacto}</p>
-        <p>${s.Detalle}</p>
-        <div class="fotos">
-          ${createImgHtml(s.Foto1)} 
-          ${createImgHtml(s.Foto2)} 
-          ${createImgHtml(s.Foto3)} 
-          ${createImgHtml(s.Foto4)}
-        </div>
-        <p><em>${s.Comentario || ""}</em></p>
-      </div>`;
-  });
-}
-
-function filtrarServicios() {
-  let cat = document.getElementById("filtroCategoria").value;
-  if (cat === "") {
-    mostrarServicios(serviciosGlobal);
-  } else {
-    mostrarServicios(serviciosGlobal.filter(s => s.Categoria === cat));
   }
+  return images.join("");
 }
 
-// ================================
-// Ventas
-// ================================
-let ventasGlobal = [];
-
-function renderVentas(ventas) {
-  ventasGlobal = ventas.filter(v => v.Descripcion);
-  mostrarVentas(ventasGlobal);
-  cargarFiltro("filtroCategoriaVentas", "Categoria", ventasGlobal);
+// --- Lightbox para ver fotos grandes ---
+function openLightbox(url) {
+  const lightbox = document.createElement("div");
+  lightbox.id = "lightbox";
+  lightbox.style.position = "fixed";
+  lightbox.style.top = 0;
+  lightbox.style.left = 0;
+  lightbox.style.width = "100%";
+  lightbox.style.height = "100%";
+  lightbox.style.background = "rgba(0,0,0,0.8)";
+  lightbox.style.display = "flex";
+  lightbox.style.alignItems = "center";
+  lightbox.style.justifyContent = "center";
+  lightbox.innerHTML = `<img src="${url}" style="max-width:90%; max-height:90%; border-radius:10px;">`;
+  lightbox.onclick = () => document.body.removeChild(lightbox);
+  document.body.appendChild(lightbox);
 }
 
-function mostrarVentas(ventas) {
-  let cont = document.getElementById("listaVentas");
-  cont.innerHTML = "";
-  ventas.forEach(v => {
-    cont.innerHTML += `
-      <div class="card">
-        <h3>${v.Descripcion} - $${v.Precio}</h3>
-        <p>${v.Marca} ${v.Modelo} (${v.Estado})</p>
-        <p>${v.Categoria} - Publicado: ${v.Fecha}</p>
-        <div class="fotos">
-          ${createImgHtml(v.Foto1)} 
-          ${createImgHtml(v.Foto2)}
-        </div>
-        <p>Contacto: ${v.Contacto}</p>
-      </div>`;
+// --- Render Servicios ---
+function renderServicios(data) {
+  const container = document.getElementById("servicios");
+  const filtro = document.getElementById("filterCategoria");
+
+  // Llenar filtro
+  const categorias = [...new Set(data.map(row => row["Categoria de Servicio"]).filter(Boolean))];
+  categorias.forEach(cat => {
+    const opt = document.createElement("option");
+    opt.value = cat;
+    opt.textContent = cat;
+    filtro.appendChild(opt);
   });
-}
 
-function filtrarVentas() {
-  let cat = document.getElementById("filtroCategoriaVentas").value;
-  if (cat === "") {
-    mostrarVentas(ventasGlobal);
-  } else {
-    mostrarVentas(ventasGlobal.filter(v => v.Categoria === cat));
+  function mostrar(filtroCat) {
+    container.innerHTML = "";
+    data.filter(row => !filtroCat || row["Categoria de Servicio"] === filtroCat)
+        .forEach(row => {
+      container.innerHTML += `
+        <div class="card">
+          ${renderImages(row)}
+          <h3>${row["Nombre"] || "Sin nombre"}</h3>
+          <p><strong>Tel:</strong> ${row["Contacto telefono"] || ""}</p>
+          <p><strong>Categoría:</strong> ${row["Categoria de Servicio"] || ""}</p>
+          <p>${row["Detalle de servicios"] || ""}</p>
+        </div>`;
+    });
   }
+
+  mostrar("");
+  filtro.onchange = () => mostrar(filtro.value);
 }
 
-// ================================
-// Bienes
-// ================================
-let bienesGlobal = [];
+// --- Render Ventas ---
+function renderVentas(data) {
+  const container = document.getElementById("ventas");
+  const filtroCat = document.getElementById("filterCategoria");
+  const filtroEst = document.getElementById("filterEstado");
 
-function renderBienes(bienes) {
-  bienesGlobal = bienes.filter(b => b.Tipo);
-  mostrarBienes(bienesGlobal);
-  cargarFiltro("filtroTransaccion", "Transaccion", bienesGlobal);
-  cargarFiltro("filtroTipo", "Tipo", bienesGlobal);
+  // Llenar filtros
+  const categorias = [...new Set(data.map(r => r["Categoria"]).filter(Boolean))];
+  categorias.forEach(c => filtroCat.innerHTML += `<option value="${c}">${c}</option>`);
+
+  const estados = [...new Set(data.map(r => r["Estado"]).filter(Boolean))];
+  estados.forEach(e => filtroEst.innerHTML += `<option value="${e}">${e}</option>`);
+
+  function mostrar(cat, est) {
+    container.innerHTML = "";
+    data.filter(r => (!cat || r["Categoria"] === cat) && (!est || r["Estado"] === est))
+        .forEach(row => {
+      container.innerHTML += `
+        <div class="card">
+          ${renderImages(row)}
+          <h3>${row["Descripcion"] || "Sin descripción"}</h3>
+          <p><strong>Precio:</strong> $${row["Precio"] || ""}</p>
+          <p><strong>Marca:</strong> ${row["Marca"] || ""} | <strong>Modelo:</strong> ${row["Modelo"] || ""}</p>
+          <p><strong>Estado:</strong> ${row["Estado"] || ""}</p>
+          <p><strong>Publicado:</strong> ${row["Fecha de publicacion"] || ""}</p>
+          <p><strong>Contacto:</strong> ${row["Contacto"] || ""}</p>
+        </div>`;
+    });
+  }
+
+  mostrar("", "");
+  filtroCat.onchange = () => mostrar(filtroCat.value, filtroEst.value);
+  filtroEst.onchange = () => mostrar(filtroCat.value, filtroEst.value);
 }
 
-function mostrarBienes(bienes) {
-  let cont = document.getElementById("listaBienes");
-  cont.innerHTML = "";
-  bienes.forEach(b => {
-    cont.innerHTML += `
-      <div class="card">
-        <h3>${b.Tipo} en ${b.Transaccion} - $${b.Valor}</h3>
-        <p>Ubicación: ${b.Ubicacion}</p>
-        <p>Publicado: ${b.Fecha}</p>
-        <div class="fotos">
-          ${createImgHtml(b.Foto1)} 
-          ${createImgHtml(b.Foto2)} 
-          ${createImgHtml(b.Foto3)} 
-          ${createImgHtml(b.Foto4)}
-        </div>
-        <p>Contacto: ${b.Contacto}</p>
-      </div>`;
-  });
+// --- Render Bienes Raíces ---
+function renderBienes(data) {
+  const container = document.getElementById("bienes");
+  const filtroTrans = document.getElementById("filterTransaccion");
+  const filtroTipo = document.getElementById("filterTipo");
+
+  // Llenar filtros
+  const transacciones = [...new Set(data.map(r => r["Tipo de transaccion"]).filter(Boolean))];
+  transacciones.forEach(t => filtroTrans.innerHTML += `<option value="${t}">${t}</option>`);
+
+  const tipos = [...new Set(data.map(r => r["Tipo de inmueble"]).filter(Boolean))];
+  tipos.forEach(t => filtroTipo.innerHTML += `<option value="${t}">${t}</option>`);
+
+  function mostrar(trans, tipo) {
+    container.innerHTML = "";
+    data.filter(r => (!trans || r["Tipo de transaccion"] === trans) && (!tipo || r["Tipo de inmueble"] === tipo))
+        .forEach(row => {
+      container.innerHTML += `
+        <div class="card">
+          ${renderImages(row)}
+          <h3>${row["Tipo de transaccion"] || ""} - ${row["Tipo de inmueble"] || ""}</h3>
+          <p><strong>Valor:</strong> $${row["Valor"] || ""}</p>
+          <p><strong>Ubicación:</strong> ${row["ubicacion"] || ""}</p>
+          <p><strong>Publicado:</strong> ${row["Fecha de publicacion"] || ""}</p>
+          <p><strong>Contacto:</strong> ${row["contacto"] || ""}</p>
+        </div>`;
+    });
+  }
+
+  mostrar("", "");
+  filtroTrans.onchange = () => mostrar(filtroTrans.value, filtroTipo.value);
+  filtroTipo.onchange = () => mostrar(filtroTrans.value, filtroTipo.value);
 }
 
-function filtrarBienes() {
-  let trans = document.getElementById("filtroTransaccion").value;
-  let tipo = document.getElementById("filtroTipo").value;
-  let filtrados = bienesGlobal;
-  if (trans !== "") filtrados = filtrados.filter(b => b.Transaccion === trans);
-  if (tipo !== "") filtrados = filtrados.filter(b => b.Tipo === tipo);
-  mostrarBienes(filtrados);
-}
-
-// ================================
-// Filtro genérico
-// ================================
-function cargarFiltro(id, campo, datos) {
-  let select = document.getElementById(id);
-  if (!select) return;
-  let valores = [...new Set(datos.map(d => d[campo]).filter(Boolean))];
-  select.innerHTML = `<option value="">Todos</option>` + 
-    valores.map(v => `<option value="${v}">${v}</option>`).join("");
-}
+// --- Detectar página actual y cargar datos ---
+document.addEventListener("DOMContentLoaded", () => {
+  if (document.getElementById("servicios")) {
+    loadCSV(urls.servicios, renderServicios);
+  }
+  if (document.getElementById("ventas")) {
+    loadCSV(urls.ventas, renderVentas);
+  }
+  if (document.getElementById("bienes")) {
+    loadCSV(urls.bienes, renderBienes);
+  }
+});
