@@ -1,38 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <title>Servicios - Servicios Vista Grande</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-  <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servicios de Mano de Obra - Vista Grande</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Servicios de mano de obra - Vista Grande</h1>
-    <nav><a href="index.html">Inicio</a> | <a href="ventas.html">Cosas en venta</a> | <a href="bienes.html">Bienes raíces</a></nav>
-  </header>
+
+  <div id="menu"></div>
 
   <main>
-    <section class="filtros">
-      <label for="filtroCategoriaServicios">Filtrar por categoría:</label>
-      <select id="filtroCategoriaServicios"></select>
-    </section>
-
-    <section id="listaServicios" class="lista"></section>
+    <h1>Servicios de Mano de Obra</h1>
+    <div>
+      <label for="filterCategoria">Filtrar por categoría:</label>
+      <select id="filterCategoria">
+        <option value="">Todos</option>
+      </select>
+    </div>
+    <div id="servicios"></div>
   </main>
 
   <footer>
-    Lote 39 / Vista Grande / Andres Cuadrado / 0998879869
+    <p>Lote 39 / Vista Grande / Andres Cuadrado / 0998879869</p>
   </footer>
-<div id="menu-container"></div>
-<script>
-  fetch("menu.html")
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById("menu-container").innerHTML = html;
-    });
-</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <script src="script.js"></script>
+  <script>
+    fetch("menu.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("menu").innerHTML = data);
+  </script>
 </body>
 </html>
