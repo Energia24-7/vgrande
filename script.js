@@ -36,11 +36,21 @@ function cargarCSV(url, callback) {
 // ================================
 // Utilidad para crear imágenes con lightbox
 // ================================
-function createImgHtml(url, alt = "foto") {
+function createImgHtml(url, alt='foto') {
   if (!url) return "";
-  let cleanUrl = url.trim();
-  if (cleanUrl === "") return "";
-  return `<img src="${cleanUrl}" alt="${alt}" class="thumb" onclick="openLightbox('${cleanUrl}')">`;
+  let first = url.split(",")[0].trim();
+  if (!first) return "";
+
+  // Si es Google Drive, convertir a link directo
+  if (first.includes("drive.google.com")) {
+    const match = first.match(/\/d\/([^/]+)\//);
+    if (match && match[1]) {
+      first = `https://drive.google.com/uc?id=${match[1]}`;
+    }
+  }
+
+  // IMPORTANTE: usar comillas dobles escapadas para onclick
+  return `<img src="${first}" alt="${alt}" class="thumb" onclick="openLightbox(&quot;${first}&quot;)">`;
 }
 
 function openLightbox(src) {
