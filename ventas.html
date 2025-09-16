@@ -3,35 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cosas en Venta - Vista Grande</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Ventas - Vista Grande</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <div id="menu"></div>
+  <header>
+    <img src="img/logo.png" alt="Logo Vista Grande" class="logo">
+    <h1>Ventas Vista Grande</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="ventas.html">Ventas</a></li>
+        <li><a href="bienes.html">Bienes</a></li>
+        <li><a href="menu.html">Menú</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <main>
-    <h1>Cosas en Venta</h1>
-    <div>
-      <label for="filterCategoria">Categoría:</label>
-      <select id="filterCategoria"><option value="">Todas</option></select>
-
-      <label for="filterEstado">Estado:</label>
-      <select id="filterEstado"><option value="">Todos</option></select>
-    </div>
-    <div id="ventas"></div>
+    <section class="content">
+      <h2>Área de Ventas</h2>
+      <p>
+        Descubre nuestro catálogo de productos disponibles para la venta. 
+        Ofrecemos precios competitivos y garantía de calidad.
+      </p>
+      <img src="img/ventas.jpg" alt="Ventas" class="sheet-img">
+    </section>
   </main>
 
   <footer>
-    <p>Lote 39 / Vista Grande / Andres Cuadrado / 0998879869</p>
+    <p>&copy; 2025 Vista Grande - Todos los derechos reservados</p>
   </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
-  <script src="script.js"></script>
-  <script>
-    fetch("menu.html")
-      .then(res => res.text())
-      .then(data => document.getElementById("menu").innerHTML = data);
-  </script>
 </body>
 </html>
