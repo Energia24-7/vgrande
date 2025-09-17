@@ -69,6 +69,7 @@ function renderServicios(data) {
           <p><strong>Teléfono:</strong> ${row["Contacto telefono"] || ""}</p>
           <p><strong>Categoría:</strong> ${row["Categoria de Servicio"] || ""}</p>
           <p><strong>Alcance de servicios:</strong> ${row["Detalle de servicios"] || ""}</p>
+          <p><strong>Comentario:</strong> ${row["Comentario"] || ""}</p>
           <p><strong>ID:</strong> ${row["ID"] || ""}</p>
         </div>`;
     });
