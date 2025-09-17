@@ -65,7 +65,7 @@ function renderServicios(data) {
       container.innerHTML += `
         <div class="card">
           ${renderImages(row)}
-          <h3><strong>Nombre:</strong>${row["Nombre"] || "Sin nombre"}</h3>
+          <h3><strong>Nombre: </strong>${row["Nombre"] || "Sin nombre"}</h3>
           <p><strong>Teléfono:</strong> ${row["Contacto telefono"] || ""}</p>
           <p><strong>Categoría:</strong> ${row["Categoria de Servicio"] || ""}</p>
           <p><strong>Alcance de servicios:</strong> ${row["Detalle de servicios"] || ""}</p>
