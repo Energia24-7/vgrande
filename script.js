@@ -105,6 +105,7 @@ function renderVentas(data) {
           <p><strong>Estado:</strong> ${row["Estado"] || ""}</p>
           <p><strong>Fecha de publicación:</strong> ${row["Fecha de publicacion"] || ""}</p>
           <p><strong>Contacto:</strong> ${row["Contacto"] || ""}</p>
+          <p><strong>Telefono:</strong> ${row["Telefono"] || ""}</p>
           <p><strong>Descripción:</strong> ${row["Descripcion"] || ""}</p>
           <p><strong>ID:</strong> ${row["ID"] || ""}</p>
         </div>`;
