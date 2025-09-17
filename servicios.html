@@ -21,31 +21,27 @@
     </nav>
   </header>
 
-  <main>
-    <section class="content">
-      <h2>Nuestros Servicios</h2>
-
-      <!-- FILTRO usado por script.js -->
-      <div class="filters">
-        <label for="filterCategoria">Filtrar por categoría:</label>
-        <select id="filterCategoria">
-          <option value="">-- Todas --</option>
-        </select>
-      </div>
-
-      <!-- CONTENEDOR donde script.js insertará las tarjetas -->
-      <div id="servicios" class="cards-container">
-        <!-- script.js llenará aquí -->
-      </div>
-    </section>
+ <main>
+    <h1>Servicios de Mano de Obra</h1>
+    <div>
+      <label for="filterCategoria">Filtrar por categoría:</label>
+      <select id="filterCategoria">
+        <option value="">Todos</option>
+      </select>
+    </div>
+    <div id="servicios"></div>
   </main>
 
   <footer>
-    <p>&copy; 2025 Vista Grande - Todos los derechos reservados</p>
+    <p>Lote 39 / Vista Grande / Andres Cuadrado / 0998879869</p>
   </footer>
 
-  <!-- PapaParse + script.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js" integrity="sha512-q0hM+/7r3rQWb2vIN6oG2u0bU7wqQ3s2m3ygKmb5pS1y2cV1+9qGDVg3hG5eFJ2Y1QmK6l6F0+2jl8R+EoQJ0w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script src="script.js"></script>
+  <script>
+    fetch("menu.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("menu").innerHTML = data);
+  </script>
 </body>
 </html>
