@@ -65,8 +65,8 @@ function renderServicios(data) {
       container.innerHTML += `
         <div class="card">
           ${renderImages(row)}
-          <h3>${row["Nombre"] || "Sin nombre"}</h3>
-          <p><strong>Telefono:</strong> ${row["Contacto telefono"] || ""}</p>
+          <h3><strong>Nombre:</strong>${row["Nombre"] || "Sin nombre"}</h3>
+          <p><strong>Teléfono:</strong> ${row["Contacto telefono"] || ""}</p>
           <p><strong>Categoría:</strong> ${row["Categoria de Servicio"] || ""}</p>
           <p><strong>Alcance de servicios:</strong> ${row["Detalle de servicios"] || ""}</p>
         </div>`;
@@ -98,13 +98,13 @@ function renderVentas(data) {
         <div class="card">
           ${renderImages(row)}
           <h3>${row["Descripcion"] || "Sin descripción"}</h3>
-          <p><strong>Categoria:</strong> ${row["Categoria"] || ""}</p>
+          <p><strong>Categoría:</strong> ${row["Categoria"] || ""}</p>
           <p><strong>Precio:</strong> $${row["Precio"] || ""}</p>
           <p><strong>Marca:</strong> ${row["Marca"] || ""} | <strong>Modelo:</strong> ${row["Modelo"] || ""}</p>
           <p><strong>Estado:</strong> ${row["Estado"] || ""}</p>
-          <p><strong>Publicado:</strong> ${row["Fecha de publicacion"] || ""}</p>
+          <p><strong>Fecha de publicación:</strong> ${row["Fecha de publicacion"] || ""}</p>
           <p><strong>Contacto:</strong> ${row["Contacto"] || ""}</p>
-          <p><strong>Descripcion:</strong> ${row["Descripcion"] || ""}</p>
+          <p><strong>Descripción:</strong> ${row["Descripcion"] || ""}</p>
         </div>`;
     });
   }
@@ -134,12 +134,12 @@ function renderBienes(data) {
       container.innerHTML += `
         <div class="card">
           ${renderImages(row)}
-          <h3>${row["Tipo de transaccion"] || ""} - ${row["Tipo de inmueble"] || ""}</h3>
+          <h3>${row["Tipo de transacción"] || ""} - ${row["Tipo de inmueble"] || ""}</h3>
           <p><strong>Valor:</strong> $${row["Valor"] || ""}</p>
           <p><strong>Ubicación:</strong> ${row["ubicacion"] || ""}</p>
-          <p><strong>Publicado:</strong> ${row["Fecha de publicacion"] || ""}</p>
+          <p><strong>Fecha de publicación:</strong> ${row["Fecha de publicacion"] || ""}</p>
           <p><strong>Contacto:</strong> ${row["contacto"] || ""}</p>
-          <p><strong>Descripcion:</strong> ${row["Descripcion"] || ""}</p>
+          <p><strong>Descripción:</strong> ${row["Descripcion"] || ""}</p>
         </div>`;
     });
   }
