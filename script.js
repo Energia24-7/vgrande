@@ -69,6 +69,7 @@ function renderServicios(data) {
           <p><strong>Teléfono:</strong> ${row["Contacto telefono"] || ""}</p>
           <p><strong>Categoría:</strong> ${row["Categoria de Servicio"] || ""}</p>
           <p><strong>Alcance de servicios:</strong> ${row["Detalle de servicios"] || ""}</p>
+          <p><strong>ID:</strong> ${row["ID"] || ""}</p>
         </div>`;
     });
   }
@@ -105,6 +106,7 @@ function renderVentas(data) {
           <p><strong>Fecha de publicación:</strong> ${row["Fecha de publicacion"] || ""}</p>
           <p><strong>Contacto:</strong> ${row["Contacto"] || ""}</p>
           <p><strong>Descripción:</strong> ${row["Descripcion"] || ""}</p>
+          <p><strong>ID:</strong> ${row["ID"] || ""}</p>
         </div>`;
     });
   }
@@ -134,12 +136,13 @@ function renderBienes(data) {
       container.innerHTML += `
         <div class="card">
           ${renderImages(row)}
-          <h3>${row["Tipo de transacción"] || ""} - ${row["Tipo de inmueble"] || ""}</h3>
+          <h3>${row["Tipo de transaccion"] || ""} - ${row["Tipo de inmueble"] || ""}</h3>
           <p><strong>Valor:</strong> $${row["Valor"] || ""}</p>
           <p><strong>Ubicación:</strong> ${row["ubicacion"] || ""}</p>
           <p><strong>Fecha de publicación:</strong> ${row["Fecha de publicacion"] || ""}</p>
           <p><strong>Contacto:</strong> ${row["contacto"] || ""}</p>
           <p><strong>Descripción:</strong> ${row["Descripcion"] || ""}</p>
+          <p><strong>ID:</strong> ${row["ID"] || ""}</p>
         </div>`;
     });
   }
