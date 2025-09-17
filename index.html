@@ -1,56 +1,71 @@
-<!DOCTYPE html>
+<!-- FILE: index.html -->
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Servicios Vista Grande</title>
-  <!-- ✅ Importante para móviles -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Servicios Vista Grande</title>
+<link rel="icon" href="/img/logo.png" />
+<style>
+/* CSS mínimo incluido para evitar un archivo separado */
+:root{--accent:#0b74de;--muted:#666}
+body{font-family:Inter, system-ui, Arial, sans-serif;margin:0;background:#f6f8fb;color:#222}
+.container{display:grid;grid-template-columns:260px 1fr;min-height:100vh}
+nav{background:#fff;border-right:1px solid #e6e9ef;padding:18px}
+nav img{max-width:140px;display:block;margin:0 auto 12px}
+nav h2{font-size:18px;margin:6px 0 12px;text-align:center}
+nav a{display:block;padding:8px 10px;color:var(--muted);text-decoration:none;border-radius:6px}
+nav a:hover{background:rgba(11,116,222,0.08);color:var(--accent)}
+header{background:#fff;padding:18px;border-bottom:1px solid #e6e9ef}
+main{padding:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.card{background:#fff;padding:12px;border-radius:8px;box-shadow:0 1px 2px rgba(12,20,40,0.04)}
+.card h3{margin:0 0 8px;font-size:16px}
+.meta{font-size:13px;color:var(--muted)}
+/* responsive */
+@media(max-width:800px){.container{grid-template-columns:1fr}nav{order:2}}
+</style>
 </head>
 <body>
-  <header>
-    <!-- ✅ Logo agregado -->
-    <img src="img/logo.png" alt="Logo Vista Grande" class="logo">
-    <h1>Servicios Vista Grande</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="servicios.html">Servicios</a></li>
-        <li><a href="ventas.html">Ventas</a></li>
-        <li><a href="bienes.html">Bienes</a></li>
-      </ul>
-    </nav>
-  </header>
+<div class="container">
+<nav>
+<img src="/img/logo.png" alt="logo" />
+<h2>Vista Grande - Servicios</h2>
+<a href="#servicios">Servicios</a>
+<a href="#publicaciones">Publicaciones</a>
+<a href="#propiedades">Propiedades</a>
+<a href="#contacto">Contacto</a>
+</nav>
 
-  <!-- Sección principal con imágenes que llevan a subpáginas -->
-  <main>
-    <section class="thumbs">
-      <a href="servicios.html">
-        <img src="img/servicios.jpeg" alt="Servicios">
-        <p>Servicios</p>
-      </a>
-      <a href="ventas.html">
-        <img src="img/ventas.jpeg" alt="Ventas">
-        <p>Ventas</p>
-      </a>
-      <a href="bienes.html">
-        <img src="img/bienes.jpeg" alt="Bienes">
-        <p>Bienes</p>
-      </a>
-    </section>
 
-    <section class="content">
-      <h2>Quiénes somos</h2>
-      <p>
-        Vista Grande es una empresa dedicada a ofrecer servicios, ventas y bienes de calidad.
-        Nuestra misión es brindar soluciones innovadoras y confiables a nuestros clientes.
-      </p>
-    </section>
-  </main>
+<div>
+<header>
+<h1 id="page-title">Servicios Vista Grande</h1>
+</header>
 
-  <footer>
-    <p>© 2025 Servicios Vista Grande</p>
-  </footer>
-</body>
+
+<main>
+<section id="servicios-section">
+<h2>Servicios</h2>
+<div id="servicios-list" class="grid">
+<!-- tarjetas insertadas por script.js -->
+</div>
+</section>
+
+
+<section id="publicaciones-section">
+<h2>Publicaciones / Venta</h2>
+<div id="publicaciones-list" class="grid"></div>
+</section>
+
+
+<section id="propiedades-section">
+<h2>Propiedades</h2>
+<div id="propiedades-list" class="grid"></div>
+</section>
+
+
+<section id="contacto">
+<h2>Contacto</h2>
+<p class="meta">Correo: pagosdeandres@gmail.com</p>
 </html>
-
